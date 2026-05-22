@@ -1,0 +1,20 @@
+<section class="hero" id="hero">
+  <h1>Gourmet Moments</h1>
+  <p>Professzionális séfek a legnagyobb rendezvényekhez.</p>
+</section>
+
+<section class="section" id="chefs">
+  <h2>Bérelhető Séfek</h2>
+  <div class="chef-grid">
+    <div class="chef-card" *ngFor="let c of filteredChefs">
+      <img class="chef-photo"
+           [src]="'https://ui-avatars.com/api/?name=' + enc(c.Name) + '&size=400&background=72dd78&color=1a3a1a&bold=true'"
+           [alt]="c.Name">
+      <div class="chef-info">
+        <h3>{{c.Name}}</h3>
+        <p>Konyhatípus: {{c.Cuisine}}</p>
+      </div>
+    </div>
+    <p *ngIf="filteredChefs.length === 0" style="color:#666;">Nincs megjeleníthető séf.</p>
+  </div>
+</section>

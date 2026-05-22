@@ -1,0 +1,86 @@
+<div class="booking-layout">
+  <section class="booking-calendar">
+    <div class="booking-header">
+      <div>
+        <h2>Séf bérlés</h2>
+        <p>Válaszd ki a bérlési időszakot a naptárban, válassz egy séfet, és foglalj le gyorsan.</p>
+      </div>
+      <div class="selected-range">
+        <strong>Választott időszak:</strong>
+        <span>{{ booking.start || '---' }} - {{ booking.end || '---' }}</span>
+      </div>
+    </div>
+
+    <div class="calendar-controls">
+      <button type="button" class="nav-btn" (click)="prevMonth()">‹</button>
+      <div class="current-month">{{ currentMonth | date: 'MMMM yyyy' }}</div>
+      <button type="button" class="nav-btn" (click)="nextMonth()">›</button>
+    </div>
+
+    <div class="calendar-grid">
+      <div class="weekday" *ngFor="let label of weekdayLabels">{{ label }}</div>
+      <button *ngFor="let date of calendarDays"
+              type="button"
+              class="calendar-day"
+              [class.empty]="!date"
+              [class.selected]="isSelected(date)"
+              [class.range]="isInRange(date)"
+              [class.disabled]="date && isBeforeTomorrow(date)"
+              [disabled]="!date || (date && isBeforeTomorrow(date))"
+              (click)="selectDate(date)">
+        <span *ngIf="date">{{ date.getDate() }}</span>
+      </button>
+    </div>
+
+    <div class="booking-status">
+      <span *ngIf="booking.start && booking.end && isDateRangeValid()">Napok: {{ getBookingDays() }}</span>
+      <span *ngIf="booking.start && booking.end && !isDateRangeValid()" class="warning">A bérlésnek legalább 3 napnak kell lennie.</span>
+    </div>
+
+    <div class="msg" [class.success]="banner.type==='success'" [class.error]="banner.type==='error'" *ngIf="banner">
+      {{ banner.text }}
+    </div>
+  </section>
+
+  <section class="chef-section">
+    <h2>Választható séfek</h2>
+    <div class="chef-list">
+      <article class="chef-card" *ngFor="let chef of chefs">
+        <div class="chef-card-top">
+          <div class="chef-avatar-wrapper">
+            <img *ngIf="chef.imageUrl" class="chef-avatar" [src]="chef.imageUrl" [alt]="chef.Name">
+            <span *ngIf="!chef.imageUrl" class="chef-avatar chef-avatar-fallback">{{ getInitials(chef.Name) }}</span>
+          </div>
+          <div class="chef-card-title">
+            <h3>{{ chef.Name }}</h3>
+            <p class="chef-cuisine">{{ chef.Cuisine }}</p>
+          </div>
+        </div>
+
+        <p class="chef-desc">{{ chef.description }}</p>
+
+        <div class="chef-prices">
+          <span><strong>Alap díj:</strong> €{{ chef.baseFee }}</span>
+          <span><strong>Napi díj:</strong> €{{ chef.dailyRate }}</span>
+          <span *ngIf="isDateRangeValid()"><strong>Várt ár:</strong> €{{ getBookingDays() * chef.dailyRate + chef.baseFee }}</span>
+        </div>
+
+        <button type="button" class="btn-primary" (click)="reserveChef(chef)">Lefoglalom</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="saved-bookings">
+    <h2>Mentett foglalások</h2>
+    <div *ngIf="bookings.length === 0" class="empty-note">Még nincs mentett foglalás. Foglalj le egy séfet a naptárból!</div>
+    <div class="booking-list" *ngIf="bookings.length > 0">
+      <article class="booking-item" *ngFor="let record of bookings; let i = index">
+        <div>
+          <strong>{{ record.chef.Name }}</strong>
+          <div class="booking-meta">{{ record.start }} – {{ record.end }} · {{ record.totalDays }} nap · €{{ record.totalPrice }}</div>
+        </div>
+        <button type="button" class="remove-btn" (click)="removeBooking(i)">Törlés</button>
+      </article>
+    </div>
+  </section>
+</div>

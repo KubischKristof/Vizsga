@@ -1,0 +1,28 @@
+<div class="chef-detail">
+  <button class="back-btn" type="button" (click)="goBack()">← Vissza a listához</button>
+
+  <ng-container *ngIf="chef; else errorBlock">
+    <div class="detail-card">
+      <div class="detail-header">
+        <div class="chef-avatar-wrapper">
+          <span class="chef-avatar chef-avatar-fallback">{{ getInitials(chef.Name) }}</span>
+        </div>
+        <div>
+          <h1>{{ chef.Name }}</h1>
+          <p class="chef-cuisine">{{ chef.Cuisine }}</p>
+        </div>
+      </div>
+
+      <p class="chef-desc">{{ chef.description }}</p>
+
+      <div class="chef-prices">
+        <div><strong>Alap díj:</strong> €{{ chef.baseFee }}</div>
+        <div><strong>Napi díj:</strong> €{{ chef.dailyRate }}</div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #errorBlock>
+    <div class="error-card">{{ error }}</div>
+  </ng-template>
+</div>

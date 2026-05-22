@@ -1,0 +1,72 @@
+.chef-detail {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: none;
+  background: transparent;
+  color: #1a3a1a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.detail-card {
+  background: #fff;
+  border: 1px solid rgba(26, 58, 26, 0.12);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
+.detail-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.chef-avatar-wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 24px;
+  background: #72dd78;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chef-avatar {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a3a1a;
+}
+
+.chef-cuisine {
+  margin: 0.35rem 0 0;
+  color: #5d755d;
+}
+
+.chef-desc {
+  margin: 1.25rem 0 0;
+  color: #4b5c4b;
+  line-height: 1.75;
+}
+
+.chef-prices {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  color: #253025;
+}
+
+.error-card {
+  padding: 1.2rem 1.4rem;
+  border-radius: 20px;
+  background: #fff2f0;
+  border: 1px solid #f1c6c3;
+  color: #872c2c;
+}
